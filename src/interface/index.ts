@@ -4,15 +4,18 @@ export interface SelectedAnswers {
 }
 
 export interface Quiz {
+    questionId: number,
     category: string,
     type: string,
     difficulty: string,
     question: string,
     correct_answer: string,
     incorrect_answers: string[],
+    options: string[]
 }
 
 export interface QuizState {
     quiz: Quiz[],
     selectedAnswers: SelectedAnswers[],
+    pageNo: number
 }

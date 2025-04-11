@@ -1,11 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { QuizState } from "../../interface";
+import { Quiz, QuizState } from "../../interface";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 export const getQuiz = createAsyncThunk('quiz/getQuiz', async ()=> {
     try {
-        const response = await fetch('https://opentdb.com/api.php?amount=30&category=18&difficulty=easy')
+        const response = await fetch('https://opentdb.com/api.php?amount=5&category=18&difficulty=easy')
         const data = await response.json()
-        return data.results
+        return data.results?.map((el: Quiz, index: number) => (
+            {
+                ...el, 
+                options: [...el.incorrect_answers, el.correct_answer],
+                questionId: index
+            }
+        ))
     } catch (error) {
         console.log(error)
     }
@@ -14,6 +22,7 @@ export const getQuiz = createAsyncThunk('quiz/getQuiz', async ()=> {
 const initialState: QuizState = {
     quiz: [],   
     selectedAnswers: [],
+    pageNo: 0,
 }
 
 const quizSlice = createSlice({
@@ -23,6 +32,9 @@ const quizSlice = createSlice({
         updateAnswer: (state, action) => {
             const { questionId, answer } = action.payload;
             state.selectedAnswers[questionId] = answer;
+        },
+        updatePageNo: (state, action) => {
+            state.pageNo = action.payload;
         }
     },
     extraReducers: builder => {
@@ -38,6 +50,11 @@ const quizSlice = createSlice({
     }
 })
 
-export const { updateAnswer } = quizSlice.actions;
+export const { updateAnswer, updatePageNo } = quizSlice.actions;
+
+export const useQuiz = () => {
+    const quizObj = useSelector((state: RootState) => state.quiz);
+    return {...quizObj}
+}
 
 export default quizSlice.reducer;
