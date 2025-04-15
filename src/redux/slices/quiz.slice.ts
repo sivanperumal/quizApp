@@ -5,7 +5,7 @@ import { RootState } from "../store";
 
 export const getQuiz = createAsyncThunk('quiz/getQuiz', async ()=> {
     try {
-        const response = await fetch('https://opentdb.com/api.php?amount=5&category=18&difficulty=easy')
+        const response = await fetch('https://opentdb.com/api.php?amount=30&category=18&difficulty=easy')
         const data = await response.json()
         return data.results?.map((el: Quiz, index: number) => (
             {

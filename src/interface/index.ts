@@ -16,6 +16,6 @@ export interface Quiz {
 
 export interface QuizState {
     quiz: Quiz[],
-    selectedAnswers: SelectedAnswers[],
+    selectedAnswers: string[],
     pageNo: number
 }

@@ -17,9 +17,8 @@ once submit successfully show popup
   - no of incorrect questions
   - percentage
   - Pass / Fail
+  - close
   - Retry
-
-
 
 Future scope
 - show current state of all the questions
