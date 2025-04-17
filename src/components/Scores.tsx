@@ -1,7 +1,7 @@
 import React from "react";
 import {
   getQuiz,
-  resetSelectedAnswer,
+  resetQuiz,
   updatePageNo,
   useQuiz,
 } from "../redux/slices/quiz.slice";
@@ -26,7 +26,7 @@ const Scores: React.FC = (props) => {
   const handleCancel = () => {
     onCloseModal();
     dispatch(getQuiz());
-    dispatch(resetSelectedAnswer());
+    dispatch(resetQuiz());
     dispatch(updatePageNo(0));
   };
   return (
