@@ -1,27 +1,52 @@
 .indicator {
-    border: 0;
-    background: #eaeaea;
-    width: 32px;
-    height: 32px;
+  border: 0;
+  background: #eaeaea;
+  width: 32px;
+  height: 32px;
 }
 
 .indicators {
-    display: flex;
-    gap: 10px;
-    width: 250px;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 10px;
+  width: 250px;
+  flex-wrap: wrap;
 }
 
 .indicator.active {
-    background: #607D8B;
-    color: #fff;
+  background: #607d8b;
+  color: #fff;
 }
 
 .question-layout {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .question-container {
-    flex: 1;
+  flex: 1;
+}
+
+/* Score board */
+.scoreboard {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1060;
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.fade {
+  transition: opacity 0.15s linear;
+}
+.scoreboard-dialogue {
+  width: 500px;
+  height: auto;
+  margin: 0 auto;
+  background: red;
+  color: #fff;
 }
