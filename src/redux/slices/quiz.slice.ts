@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Quiz, QuizState } from "../../interface";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import { shuffleArray } from "./../../utils";
 
 export const getQuiz = createAsyncThunk("quiz/getQuiz", async () => {
   try {
@@ -34,17 +35,24 @@ const quizSlice = createSlice({
       const { questionId, answer } = action.payload;
       state.selectedAnswers[questionId] = answer;
     },
-    resetQuiz: (state) => {
+    retryQuiz: (state) => {
       state.selectedAnswers = [];
-      state.quizStarted = !state.quizStarted;
+      state.quizStarted = true;
+      state.pageNo = 0;
     },
     updatePageNo: (state, action) => {
       state.pageNo = action.payload;
     },
+    resetQuiz: (state) => {
+      state.selectedAnswers = [];
+      state.quizStarted = false;
+      state.pageNo = 0;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getQuiz.fulfilled, (state, action) => {
-      state.quiz = action.payload;
+      const shuffleIndex = shuffleArray([0,1,2,3,4])
+      state.quiz = shuffleIndex.map((i:number) => action.payload[i]);
     });
     builder.addCase(getQuiz.pending, (state) => {
       state.quiz = [];
@@ -55,7 +63,7 @@ const quizSlice = createSlice({
   },
 });
 
-export const { updateAnswer, updatePageNo, resetQuiz } = quizSlice.actions;
+export const { updateAnswer, updatePageNo, resetQuiz, retryQuiz } = quizSlice.actions;
 
 export const useQuiz = () => {
   const quizObj = useSelector((state: RootState) => state.quiz);

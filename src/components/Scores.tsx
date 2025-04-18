@@ -2,11 +2,13 @@ import React from "react";
 import {
   getQuiz,
   resetQuiz,
-  updatePageNo,
+  retryQuiz,
   useQuiz,
 } from "../redux/slices/quiz.slice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
+
+type Result = 'pass' | 'fail';
 
 const Scores: React.FC = (props) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -21,21 +23,27 @@ const Scores: React.FC = (props) => {
   });
 
   const percentage = (score / quiz.length) * 100;
-  const result = percentage > 70 ? "pass" : "fail";
+  const result:Result = percentage > 70 ? "pass" : "fail";
 
   const handleCancel = () => {
     onCloseModal();
+    dispatch(resetQuiz())
     dispatch(getQuiz());
-    dispatch(resetQuiz());
-    dispatch(updatePageNo(0));
   };
+
+  const handleRetry = () => {
+    dispatch(retryQuiz());
+    onCloseModal();
+  }
+
   return (
     <>
       <h1>
         {`You gained ${score}/${quiz.length} score. Precentage: ${percentage},
       result will be ${result}`}
       </h1>
-      <button onClick={handleCancel}>Cancel</button>
+      <button onClick={handleCancel}>Close</button>
+      {result === 'fail' && <button onClick={handleRetry}>Retry</button>}
     </>
   );
 };

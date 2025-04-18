@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import "./App.css";
 import { useDispatch } from "react-redux";
-import { getQuiz, resetQuiz, useQuiz } from "./redux/slices/quiz.slice";
+import { getQuiz, retryQuiz, useQuiz } from "./redux/slices/quiz.slice";
 import QuestionLayout from "./components/QuestionLayout";
 import { AppDispatch } from "./redux/store";
 
@@ -18,9 +18,11 @@ function App() {
   const questionObj = useMemo(() => {
     return quiz[pageNo] ?? {};
   }, [pageNo, quiz]);
+
   const handleQuizStart = () => {
-    dispatch(resetQuiz());
+    dispatch(retryQuiz());
   };
+
   return (
     <div className="App">
       <h1>Quiz App</h1>
