@@ -47,12 +47,12 @@ const quizSlice = createSlice({
       state.selectedAnswers = [];
       state.quizStarted = false;
       state.pageNo = 0;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getQuiz.fulfilled, (state, action) => {
-      const shuffleIndex = shuffleArray([0,1,2,3,4])
-      state.quiz = shuffleIndex.map((i:number) => action.payload[i]);
+      const shuffleIndex = shuffleArray([0, 1, 2, 3, 4]);
+      state.quiz = shuffleIndex.map((i: number) => action.payload[i]);
     });
     builder.addCase(getQuiz.pending, (state) => {
       state.quiz = [];
@@ -63,7 +63,8 @@ const quizSlice = createSlice({
   },
 });
 
-export const { updateAnswer, updatePageNo, resetQuiz, retryQuiz } = quizSlice.actions;
+export const { updateAnswer, updatePageNo, resetQuiz, retryQuiz } =
+  quizSlice.actions;
 
 export const useQuiz = () => {
   const quizObj = useSelector((state: RootState) => state.quiz);
