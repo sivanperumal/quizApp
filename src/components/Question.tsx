@@ -2,12 +2,11 @@ import { useMemo } from "react";
 import { Quiz } from "../interface";
 import { updateAnswer, useQuiz } from "../redux/slices/quiz.slice";
 import { useDispatch } from "react-redux";
-
-interface QuestionInterface {
+interface QuestionProps {
   data: Quiz;
 }
 
-const Question: React.FC<QuestionInterface> = (props) => {
+const Question: React.FC<QuestionProps> = (props) => {
   const dispatch = useDispatch();
   const { data } = props;
   const { selectedAnswers } = useQuiz();
@@ -28,15 +27,15 @@ const Question: React.FC<QuestionInterface> = (props) => {
     <div>
       <h2>{data.question}</h2>
       <ul>
-        {data.options?.map((option, index) => (
+        {data.answers?.map((answer, index: number) => (
           <li>
             <input
               type="radio"
-              checked={selectedValue === option}
+              checked={selectedValue === answer}
               id={`option${index}`}
-              onChange={(event) => handleOnChange(event, option)}
+              onChange={(event) => handleOnChange(event, answer)}
             />
-            <label htmlFor={`option${index}`}>{option}</label>
+            <label htmlFor={`option${index}`}>{answer}</label>
           </li>
         ))}
       </ul>

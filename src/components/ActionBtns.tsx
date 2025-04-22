@@ -2,7 +2,10 @@ import React from "react";
 import { updatePageNo, useQuiz } from "../redux/slices/quiz.slice";
 import { useDispatch } from "react-redux";
 
-const ActionBtns: React.FC = (props) => {
+interface ActionbtnInerface {
+  onOpenModal: () => void;
+}
+const ActionBtns: React.FC<ActionbtnInerface> = (props) => {
   const { onOpenModal } = props;
   const { pageNo, quiz, selectedAnswers } = useQuiz();
   const dispatch = useDispatch();
