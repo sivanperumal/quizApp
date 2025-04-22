@@ -12,6 +12,7 @@ export interface Quiz {
   correct_answer: string;
   incorrect_answers: string[];
   options: string[];
+  answers: string[];
 }
 
 export interface QuizState {

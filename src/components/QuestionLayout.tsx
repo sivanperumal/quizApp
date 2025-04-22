@@ -6,11 +6,11 @@ import Question from "./Question";
 import ScoreboardModal from "./ScoreboardModal";
 import Scores from "./Scores";
 
-interface QuestionInterface {
+interface QuestionLayoutProps {
   data: Quiz;
 }
 
-const QuestionLayout: React.FC<QuestionInterface> = (props) => {
+const QuestionLayout: React.FC<QuestionLayoutProps> = (props) => {
   const { data } = props;
   const [open, setOpen] = useState<boolean>(false);
   const handleOpenModal = () => {

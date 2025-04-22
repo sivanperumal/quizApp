@@ -2,17 +2,14 @@ import { useMemo } from "react";
 import { Quiz } from "../interface";
 import { updateAnswer, useQuiz } from "../redux/slices/quiz.slice";
 import { useDispatch } from "react-redux";
-import { shuffleArray } from "../utils/";
-interface QuestionInterface {
+interface QuestionProps {
   data: Quiz;
 }
 
-const Question: React.FC<QuestionInterface> = (props) => {
+const Question: React.FC<QuestionProps> = (props) => {
   const dispatch = useDispatch();
   const { data } = props;
   const { selectedAnswers } = useQuiz();
-  const toRange = (n: number) => [...Array(n).keys()];
-  const shuffleIndex = shuffleArray(toRange(data.options.length));
 
   const handleOnChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -30,15 +27,15 @@ const Question: React.FC<QuestionInterface> = (props) => {
     <div>
       <h2>{data.question}</h2>
       <ul>
-        {shuffleIndex?.map((index: number) => (
+        {data.answers?.map((answer, index: number) => (
           <li>
             <input
               type="radio"
-              checked={selectedValue === data.options[index]}
+              checked={selectedValue === answer}
               id={`option${index}`}
-              onChange={(event) => handleOnChange(event, data.options[index])}
+              onChange={(event) => handleOnChange(event, answer)}
             />
-            <label htmlFor={`option${index}`}>{data.options[index]}</label>
+            <label htmlFor={`option${index}`}>{answer}</label>
           </li>
         ))}
       </ul>

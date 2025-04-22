@@ -8,9 +8,11 @@ import {
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 
-type Result = 'pass' | 'fail';
-
-const Scores: React.FC = (props) => {
+type Result = "pass" | "fail";
+interface ScoreProps {
+  onCloseModal: () => void;
+}
+const Scores: React.FC<ScoreProps> = (props) => {
   const dispatch = useDispatch<AppDispatch>();
   const { quiz, selectedAnswers } = useQuiz();
   const { onCloseModal } = props;
@@ -23,18 +25,18 @@ const Scores: React.FC = (props) => {
   });
 
   const percentage = (score / quiz.length) * 100;
-  const result:Result = percentage > 70 ? "pass" : "fail";
+  const result: Result = percentage > 70 ? "pass" : "fail";
 
   const handleCancel = () => {
     onCloseModal();
-    dispatch(resetQuiz())
+    dispatch(resetQuiz());
     dispatch(getQuiz());
   };
 
   const handleRetry = () => {
     dispatch(retryQuiz());
     onCloseModal();
-  }
+  };
 
   return (
     <>
@@ -43,7 +45,7 @@ const Scores: React.FC = (props) => {
       result will be ${result}`}
       </h1>
       <button onClick={handleCancel}>Close</button>
-      {result === 'fail' && <button onClick={handleRetry}>Retry</button>}
+      {result === "fail" && <button onClick={handleRetry}>Retry</button>}
     </>
   );
 };
