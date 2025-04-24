@@ -5,7 +5,7 @@ interface ScoreBoard {
 }
 const ScoreboardModal: React.FC<ScoreBoard> = (props) => {
   const { open } = props;
-  console.log(open);
+
   return (
     <div className="scoreboard" style={{ display: open ? "block" : "none" }}>
       <div className="scoreboard-dialogue">{props.children}</div>
