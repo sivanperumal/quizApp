@@ -12,10 +12,7 @@ const Question: React.FC<QuestionInterface> = (props) => {
   const { data } = props;
   const { selectedAnswers } = useQuiz();
 
-  const handleOnChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    value: string
-  ) => {
+  const handleOnChange = (value: string) => {
     // dispatch(updateAnswer({questionId: data.questionId, answer: event.target.checked ? value : ''}))
     dispatch(updateAnswer({ questionId: data.questionId, answer: value }));
   };
@@ -34,7 +31,7 @@ const Question: React.FC<QuestionInterface> = (props) => {
               type="radio"
               checked={selectedValue === option}
               id={`option${index}`}
-              onChange={(event) => handleOnChange(event, option)}
+              onChange={() => handleOnChange(option)}
             />
             <label htmlFor={`option${index}`}>{option}</label>
           </li>

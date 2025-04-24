@@ -10,7 +10,11 @@ import { AppDispatch } from "../redux/store";
 
 type Result = 'pass' | 'fail';
 
-const Scores: React.FC = (props) => {
+interface ScroeProps {
+  onCloseModal: () => void
+}
+
+const Scores: React.FC<ScroeProps> = (props) => {
   const dispatch = useDispatch<AppDispatch>();
   const { quiz, selectedAnswers } = useQuiz();
   const { onCloseModal } = props;

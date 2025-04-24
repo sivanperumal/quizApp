@@ -9,6 +9,8 @@ function App() {
   const { quizStarted } = useQuiz();
   const dispatch = useDispatch<AppDispatch>();
 
+  console.log('env', process.env.ENVIRONMENT)
+
   const { pageNo, quiz } = useQuiz();
 
   useEffect(() => {
