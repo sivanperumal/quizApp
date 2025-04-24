@@ -11,10 +11,9 @@ export const getQuiz = createAsyncThunk("quiz/getQuiz", async () => {
       `${apiUrl}?amount=5&category=18&difficulty=easy`
     );
     const data = await response.json();
-    return data.results?.map((el: Quiz, index: number) => ({
+    return data.results?.map((el: Quiz) => ({
       ...el,
       options: [...el.incorrect_answers, el.correct_answer],
-      questionId: index,
     }));
   } catch (error) {
     console.log(error);
@@ -48,12 +47,22 @@ const quizSlice = createSlice({
       state.selectedAnswers = [];
       state.quizStarted = false;
       state.pageNo = 0;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getQuiz.fulfilled, (state, action) => {
-      const shuffleIndex = shuffleArray([0,1,2,3,4])
-      state.quiz = shuffleIndex.map((i:number) => action.payload[i]);
+      const toRange = (n: number) => [...Array(n).keys()];
+      const shuffleIndex = shuffleArray(toRange(action.payload.length));
+      const questions = shuffleIndex.map((i: number) => action.payload[i]);
+      let shuffled_options: string[] = [];
+
+      questions.map((question: Quiz, index: number) => {
+        const optionsIndex = shuffleArray(toRange(question.options.length));
+        shuffled_options = optionsIndex.map((i: number) => question.options[i]);
+        question.answers = shuffled_options;
+        question.questionId = index;
+      });
+      state.quiz = questions;
     });
     builder.addCase(getQuiz.pending, (state) => {
       state.quiz = [];
@@ -64,7 +73,8 @@ const quizSlice = createSlice({
   },
 });
 
-export const { updateAnswer, updatePageNo, resetQuiz, retryQuiz } = quizSlice.actions;
+export const { updateAnswer, updatePageNo, resetQuiz, retryQuiz } =
+  quizSlice.actions;
 
 export const useQuiz = () => {
   const quizObj = useSelector((state: RootState) => state.quiz);
