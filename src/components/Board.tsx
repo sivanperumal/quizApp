@@ -22,29 +22,59 @@ const Board: React.FC<BoardProps> = (props) => {
     return selectedAnswers[data.questionId];
   }, [selectedAnswers, data.questionId]);
 
+  const isCorrectAns = (answer: string) => {
+    return (
+      selectedAnswers[resultPageNo] === answer &&
+      answer === data.correct_answer &&
+      boardtype === "rBoard"
+    );
+  };
+  const isWrongAns = (answer: string) => {
+    return (
+      selectedAnswers[resultPageNo] === answer &&
+      answer !== data.correct_answer &&
+      boardtype === "rBoard"
+    );
+  };
+  const isActualAns = (answer: string) => {
+    return (
+      selectedAnswers[resultPageNo] !== answer &&
+      answer === data.correct_answer &&
+      boardtype === "rBoard"
+    );
+  };
+  const getClassName = (answer: string) => {
+    let classLists = "";
+    if (isCorrectAns(answer)) {
+      classLists = "correct selected";
+    } else if (isWrongAns(answer)) {
+      classLists = "wrong";
+    } else if (isActualAns(answer)) {
+      classLists = "correct";
+    } else {
+      classLists = "";
+    }
+    return classLists;
+  };
+
+  const getSelectedAnsString = (answer: string) => {
+    let catchString = "";
+    if (isCorrectAns(answer)) {
+      catchString = "Your Answer";
+    } else if (isWrongAns(answer)) {
+      catchString = "Your Answer";
+    } else if (isActualAns(answer)) {
+      catchString = "Correct answer";
+    }
+    return catchString;
+  };
   return (
     <div className="board">
       <h2>Question {data.questionId + 1}</h2>
       <p>{data.question}</p>
       <ul className="answers">
         {data.answers?.map((answer, index: number) => (
-          <li
-            className={`answer-item ${
-              selectedAnswers[resultPageNo] === answer &&
-              answer === data.correct_answer &&
-              boardtype === "rBoard"
-                ? "correct selected"
-                : selectedAnswers[resultPageNo] === answer &&
-                  answer !== data.correct_answer &&
-                  boardtype === "rBoard"
-                ? "wrong"
-                : selectedAnswers[resultPageNo] !== answer &&
-                  answer === data.correct_answer &&
-                  boardtype === "rBoard"
-                ? "correct"
-                : ""
-            }`}
-          >
+          <li className={`answer-item ${getClassName(answer)}`}>
             {boardtype === "qBoard" && (
               <input
                 type="radio"
@@ -53,34 +83,16 @@ const Board: React.FC<BoardProps> = (props) => {
                 onChange={(event) => handleOnChange(event, answer)}
               />
             )}
-            {selectedAnswers[resultPageNo] === answer &&
-            answer === data.correct_answer &&
-            boardtype === "rBoard" ? (
+            {isCorrectAns(answer) ? (
               <i className="fa fa-check"></i>
-            ) : selectedAnswers[resultPageNo] === answer &&
-              answer !== data.correct_answer &&
-              boardtype === "rBoard" ? (
+            ) : isWrongAns(answer) ? (
               <i className="fa fa-times"></i>
             ) : (
               ""
             )}
             <label htmlFor={`option${index}`}>{answer}</label>
             <span className="answercomment">
-              {`${
-                selectedAnswers[resultPageNo] === answer &&
-                answer === data.correct_answer &&
-                boardtype === "rBoard"
-                  ? "Your answer"
-                  : selectedAnswers[resultPageNo] === answer &&
-                    answer !== data.correct_answer &&
-                    boardtype === "rBoard"
-                  ? "Your answer"
-                  : selectedAnswers[resultPageNo] !== answer &&
-                    answer === data.correct_answer &&
-                    boardtype === "rBoard"
-                  ? "Correct answer"
-                  : ""
-              }`}
+              {`${getSelectedAnsString(answer)}`}
             </span>
           </li>
         ))}
