@@ -4,9 +4,10 @@ import { useDispatch } from "react-redux";
 import { getQuiz, retryQuiz, useQuiz } from "./redux/slices/quiz.slice";
 import QuestionLayout from "./components/QuestionLayout";
 import { AppDispatch } from "./redux/store";
+import Results from "./components/Results";
 
 function App() {
-  const { quizStarted } = useQuiz();
+  const { quizStarted, resultStarted } = useQuiz();
   const dispatch = useDispatch<AppDispatch>();
 
   const { pageNo, quiz } = useQuiz();
@@ -24,13 +25,26 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>Quiz App</h1>
-      {quizStarted ? (
-        <QuestionLayout data={questionObj} />
-      ) : (
-        <button onClick={() => handleQuizStart()}>Start the Quiz</button>
-      )}
+    <div className="App p-0">
+      <div className="app-container container">
+        <header>
+          <h1>Quiz App {`${resultStarted ? "Results" : ""}`}</h1>
+        </header>
+
+        {quizStarted ? (
+          <QuestionLayout data={questionObj} />
+        ) : (
+          !resultStarted && (
+            <button
+              className="btn btn-success"
+              onClick={() => handleQuizStart()}
+            >
+              Start the Quiz
+            </button>
+          )
+        )}
+        {resultStarted && <Results />}
+      </div>
     </div>
   );
 }
