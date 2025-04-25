@@ -15,9 +15,10 @@ const Preview: React.FC = () => {
       {quiz.map((_quiz, index) => {
         return (
           <button
-            className={
+            type="button"
+            className={`${
               selectedAnswers[index] ? "active indicator" : "indicator"
-            }
+            } btn btn-light`}
             onClick={() => handleClick(index)}
           >
             {index + 1}

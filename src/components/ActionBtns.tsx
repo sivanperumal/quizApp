@@ -28,13 +28,26 @@ const ActionBtns: React.FC<ActionbtnInerface> = (props) => {
 
   return (
     <div className="action-btns">
-      <button onClick={handlePrev} disabled={pageNo === 0}>
+      <button
+        type="button"
+        className="btn btn-outline-secondary me-2"
+        onClick={handlePrev}
+        disabled={pageNo === 0}
+      >
         Prev
       </button>
       {pageNo >= quiz.length - 1 ? (
-        <button onClick={handleSubmit}>Submit</button>
+        <button className="btn btn-success" onClick={handleSubmit}>
+          Submit
+        </button>
       ) : (
-        <button onClick={handleNext}>Next</button>
+        <button
+          type="button"
+          className="btn btn-outline-secondary"
+          onClick={handleNext}
+        >
+          Next
+        </button>
       )}
     </div>
   );

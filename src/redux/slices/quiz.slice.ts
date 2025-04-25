@@ -25,6 +25,8 @@ const initialState: QuizState = {
   selectedAnswers: [],
   pageNo: 0,
   quizStarted: false,
+  resultStarted: false,
+  resultPageNo: 0,
 };
 
 const quizSlice = createSlice({
@@ -46,7 +48,16 @@ const quizSlice = createSlice({
     resetQuiz: (state) => {
       state.selectedAnswers = [];
       state.quizStarted = false;
+      state.resultStarted = false;
       state.pageNo = 0;
+      state.resultPageNo = 0;
+    },
+    updateResults: (state) => {
+      state.quizStarted = false;
+      state.resultStarted = true;
+    },
+    updateResultPageNo: (state, action) => {
+      state.resultPageNo = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -73,8 +84,14 @@ const quizSlice = createSlice({
   },
 });
 
-export const { updateAnswer, updatePageNo, resetQuiz, retryQuiz } =
-  quizSlice.actions;
+export const {
+  updateAnswer,
+  updatePageNo,
+  resetQuiz,
+  retryQuiz,
+  updateResults,
+  updateResultPageNo,
+} = quizSlice.actions;
 
 export const useQuiz = () => {
   const quizObj = useSelector((state: RootState) => state.quiz);

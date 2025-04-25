@@ -20,4 +20,6 @@ export interface QuizState {
   selectedAnswers: string[];
   pageNo: number;
   quizStarted: boolean;
+  resultStarted: boolean;
+  resultPageNo: number;
 }

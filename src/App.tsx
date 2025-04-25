@@ -4,10 +4,12 @@ import { useDispatch } from "react-redux";
 import { getQuiz, retryQuiz, useQuiz } from "./redux/slices/quiz.slice";
 import { AppDispatch } from "./redux/store";
 
+// Lazy load
 const QuestionLayout = React.lazy(() => import('./components/QuestionLayout'))
+const Results = React.lazy(() => import('./components/Results'))
 
 function App() {
-  const { quizStarted } = useQuiz();
+  const { quizStarted, resultStarted } = useQuiz();
   const dispatch = useDispatch<AppDispatch>();
 
   const { pageNo, quiz } = useQuiz();
@@ -25,15 +27,28 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>Quiz App</h1>
-      {quizStarted ? (
-        <Suspense fallback={<div>Loading...</div>}>
-          <QuestionLayout data={questionObj} />
-        </Suspense>
-      ) : (
-        <button onClick={() => handleQuizStart()}>Start the Quiz</button>
-      )}
+    <div className="App p-0">
+      <div className="app-container container">
+        <header>
+          <h1>Quiz App {`${resultStarted ? "Results" : ""}`}</h1>
+        </header>
+
+        {quizStarted ? (
+          <Suspense fallback={<div>Loading...</div>}>
+            <QuestionLayout data={questionObj} />
+          </Suspense>
+        ) : (
+          !resultStarted && (
+            <button
+              className="btn btn-success"
+              onClick={() => handleQuizStart()}
+            >
+              Start the Quiz
+            </button>
+          )
+        )}
+        {resultStarted && <Suspense fallback={<div>Loading...</div>}><Results /></Suspense>}
+      </div>
     </div>
   );
 }
