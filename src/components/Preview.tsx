@@ -12,7 +12,7 @@ const Preview: React.FC = () => {
 
   return (
     <div className="indicators">
-      {quiz.map((quiz, index) => {
+      {quiz.map((_quiz, index) => {
         return (
           <button
             type="button"

@@ -1,10 +1,12 @@
-import { useEffect, useMemo } from "react";
+import React, { Suspense, useEffect, useMemo } from "react";
 import "./App.css";
 import { useDispatch } from "react-redux";
 import { getQuiz, retryQuiz, useQuiz } from "./redux/slices/quiz.slice";
-import QuestionLayout from "./components/QuestionLayout";
 import { AppDispatch } from "./redux/store";
-import Results from "./components/Results";
+
+// Lazy load
+const QuestionLayout = React.lazy(() => import('./components/QuestionLayout'))
+const Results = React.lazy(() => import('./components/Results'))
 
 function App() {
   const { quizStarted, resultStarted } = useQuiz();
@@ -32,7 +34,9 @@ function App() {
         </header>
 
         {quizStarted ? (
-          <QuestionLayout data={questionObj} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <QuestionLayout data={questionObj} />
+          </Suspense>
         ) : (
           !resultStarted && (
             <button
@@ -43,7 +47,7 @@ function App() {
             </button>
           )
         )}
-        {resultStarted && <Results />}
+        {resultStarted && <Suspense fallback={<div>Loading...</div>}><Results /></Suspense>}
       </div>
     </div>
   );

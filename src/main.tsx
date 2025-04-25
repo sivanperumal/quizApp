@@ -1,14 +1,20 @@
-import { StrictMode } from 'react'
+// import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { Provider as ReduxStore } from 'react-redux'
 import store from './redux/store.ts'
 
-createRoot(document.getElementById('root')!).render(
+const rootElement = document.getElementById("root");
+
+if (!rootElement) {
+  throw new Error("Root element not found");
+}
+
+createRoot(rootElement).render(
   // <StrictMode>
     <ReduxStore store={store}>
       <App />
     </ReduxStore>
-  // </StrictMode>,
+  // </StrictMode> 
 )
