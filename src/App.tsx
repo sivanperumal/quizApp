@@ -1,9 +1,10 @@
-import { useEffect, useMemo } from "react";
+import React, { Suspense, useEffect, useMemo } from "react";
 import "./App.css";
 import { useDispatch } from "react-redux";
 import { getQuiz, retryQuiz, useQuiz } from "./redux/slices/quiz.slice";
-import QuestionLayout from "./components/QuestionLayout";
 import { AppDispatch } from "./redux/store";
+
+const QuestionLayout = React.lazy(() => import('./components/QuestionLayout'))
 
 function App() {
   const { quizStarted } = useQuiz();
@@ -27,7 +28,9 @@ function App() {
     <div className="App">
       <h1>Quiz App</h1>
       {quizStarted ? (
-        <QuestionLayout data={questionObj} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <QuestionLayout data={questionObj} />
+        </Suspense>
       ) : (
         <button onClick={() => handleQuizStart()}>Start the Quiz</button>
       )}
