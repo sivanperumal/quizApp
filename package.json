@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "wp:start": "webpack serve --mode development --env development",
     "analyze": "webpack --mode production --profile --json > bundle_analyse.json && webpack-bundle-analyzer bundle_analyse.json",
-    "build": "npm run format && npm run lint && webpack --mode production --env production"
+    "build": "webpack --mode production --env production"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.6.1",
