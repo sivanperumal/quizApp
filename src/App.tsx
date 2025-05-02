@@ -5,8 +5,8 @@ import { getQuiz, retryQuiz, useQuiz } from "./redux/slices/quiz.slice";
 import { AppDispatch } from "./redux/store";
 
 // Lazy load
-const QuestionLayout = React.lazy(() => import('./components/QuestionLayout'))
-const Results = React.lazy(() => import('./components/Results'))
+const QuestionLayout = React.lazy(() => import("./components/QuestionLayout"));
+const Results = React.lazy(() => import("./components/Results"));
 
 function App() {
   const { quizStarted, resultStarted } = useQuiz();
@@ -47,7 +47,11 @@ function App() {
             </button>
           )
         )}
-        {resultStarted && <Suspense fallback={<div>Loading...</div>}><Results /></Suspense>}
+        {resultStarted && (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Results />
+          </Suspense>
+        )}
       </div>
     </div>
   );

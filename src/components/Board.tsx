@@ -74,7 +74,7 @@ const Board: React.FC<BoardProps> = (props) => {
       <p>{data.question}</p>
       <ul className="answers">
         {data.answers?.map((answer, index: number) => (
-          <li className={`answer-item ${getClassName(answer)}`}>
+          <li key={answer} className={`answer-item ${getClassName(answer)}`}>
             {boardtype === "qBoard" && (
               <input
                 type="radio"

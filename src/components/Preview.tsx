@@ -15,6 +15,7 @@ const Preview: React.FC = () => {
       {quiz.map((_quiz, index) => {
         return (
           <button
+            key={index}
             type="button"
             className={`${
               selectedAnswers[index] ? "active indicator" : "indicator"
