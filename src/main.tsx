@@ -1,9 +1,9 @@
 // import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
-import { Provider as ReduxStore } from 'react-redux'
-import store from './redux/store.ts'
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
+import { Provider as ReduxStore } from "react-redux";
+import store from "./redux/store.ts";
 
 const rootElement = document.getElementById("root");
 
@@ -13,8 +13,8 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   // <StrictMode>
-    <ReduxStore store={store}>
-      <App />
-    </ReduxStore>
-  // </StrictMode> 
-)
+  <ReduxStore store={store}>
+    <App />
+  </ReduxStore>
+  // </StrictMode>
+);

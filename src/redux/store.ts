@@ -1,23 +1,23 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import quizReducer from './slices/quiz.slice'
-import { TypedUseSelectorHook, useSelector } from 'react-redux'
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import quizReducer from "./slices/quiz.slice";
+import { TypedUseSelectorHook, useSelector } from "react-redux";
 
 export const rootReducer = combineReducers({
-  quiz: quizReducer
-})
+  quiz: quizReducer,
+});
 
 export const setupStore = (preloadedState?: Partial<RootState>) => {
   return configureStore({
     reducer: rootReducer,
-    preloadedState
-  })
-}
+    preloadedState,
+  });
+};
 
-export type RootState = ReturnType<typeof rootReducer>
-export type AppStore = ReturnType<typeof setupStore>
-export type AppDispatch = AppStore['dispatch']
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore["dispatch"];
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export default configureStore({
-  reducer: rootReducer
+  reducer: rootReducer,
 });

@@ -39,17 +39,18 @@ const ResultModal: React.FC<ResultProps> = (props) => {
           {questionObj?.answers.map((answer: string) => {
             return (
               <li
+                key={answer}
                 className={`answer-item ${
                   selectedAnswers[resultPageNo] === answer &&
                   answer === questionObj.correct_answer
                     ? "correct selected"
                     : selectedAnswers[resultPageNo] === answer &&
-                      answer !== questionObj.correct_answer
-                    ? "wrong"
-                    : selectedAnswers[resultPageNo] !== answer &&
-                      answer === questionObj.correct_answer
-                    ? "correct"
-                    : ""
+                        answer !== questionObj.correct_answer
+                      ? "wrong"
+                      : selectedAnswers[resultPageNo] !== answer &&
+                          answer === questionObj.correct_answer
+                        ? "correct"
+                        : ""
                 }`}
               >
                 {selectedAnswers[resultPageNo] === answer &&
@@ -68,12 +69,12 @@ const ResultModal: React.FC<ResultProps> = (props) => {
                     answer === questionObj.correct_answer
                       ? "Your answer"
                       : selectedAnswers[resultPageNo] === answer &&
-                        answer !== questionObj.correct_answer
-                      ? "Your answer"
-                      : selectedAnswers[resultPageNo] !== answer &&
-                        answer === questionObj.correct_answer
-                      ? "Correct answer"
-                      : ""
+                          answer !== questionObj.correct_answer
+                        ? "Your answer"
+                        : selectedAnswers[resultPageNo] !== answer &&
+                            answer === questionObj.correct_answer
+                          ? "Correct answer"
+                          : ""
                   }`}
                 </span>
               </li>
