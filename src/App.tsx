@@ -9,17 +9,15 @@ const QuestionLayout = React.lazy(() => import("./components/QuestionLayout"));
 const Results = React.lazy(() => import("./components/Results"));
 
 function App() {
-  const { quizStarted, resultStarted } = useQuiz();
+  const { quizStarted, resultStarted, pageNo, quiz } = useQuiz();
   const dispatch = useDispatch<AppDispatch>();
-
-  const { pageNo, quiz } = useQuiz();
 
   useEffect(() => {
     dispatch(getQuiz());
   }, [dispatch]);
 
   const questionObj = useMemo(() => {
-    return quiz[pageNo] ?? {};
+    return quiz?.[pageNo];
   }, [pageNo, quiz]);
 
   const handleQuizStart = () => {
@@ -40,6 +38,7 @@ function App() {
         ) : (
           !resultStarted && (
             <button
+              data-testid="start-quiz"
               className="btn btn-success"
               onClick={() => handleQuizStart()}
             >

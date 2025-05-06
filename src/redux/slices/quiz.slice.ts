@@ -63,13 +63,13 @@ const quizSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getQuiz.fulfilled, (state, action) => {
       const toRange = (n: number) => [...Array(n).keys()];
-      const shuffleIndex = shuffleArray(toRange(action.payload.length));
-      const questions = shuffleIndex.map((i: number) => action.payload[i]);
+      const shuffleIndex = shuffleArray(toRange(action.payload?.length));
+      const questions = shuffleIndex.map((i: number) => action.payload?.[i]);
       let shuffled_options: string[] = [];
 
-      questions.map((question: Quiz, index: number) => {
-        const optionsIndex = shuffleArray(toRange(question.options.length));
-        shuffled_options = optionsIndex.map((i: number) => question.options[i]);
+      questions?.map((question: Quiz, index: number) => {
+        const optionsIndex = shuffleArray(toRange(question?.options?.length));
+        shuffled_options = optionsIndex.map((i: number) => question?.options?.[i]);
         question.answers = shuffled_options;
         question.questionId = index;
       });
