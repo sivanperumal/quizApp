@@ -6,6 +6,7 @@ export const rootReducer = combineReducers({
   quiz: quizReducer,
 });
 
+// only for jest test cases
 export const setupStore = (preloadedState?: Partial<RootState>) => {
   return configureStore({
     reducer: rootReducer,

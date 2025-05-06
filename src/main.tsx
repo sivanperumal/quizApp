@@ -1,9 +1,9 @@
 // import { StrictMode } from 'react'
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.tsx";
+import App from "./App";
 import { Provider as ReduxStore } from "react-redux";
-import store from "./redux/store.ts";
+import store from "./redux/store";
 
 const rootElement = document.getElementById("root");
 
