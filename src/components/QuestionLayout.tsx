@@ -5,7 +5,6 @@ import Preview from "./Preview";
 import Question from "./Question";
 import ScoreboardModal from "./ScoreboardModal";
 import Scores from "./Scores";
-import ResultModal from "./ResultModal";
 interface QuestionLayoutProps {
   data: Quiz;
 }
@@ -13,16 +12,13 @@ interface QuestionLayoutProps {
 const QuestionLayout: React.FC<QuestionLayoutProps> = (props) => {
   const { data } = props;
   const [open, setOpen] = useState<boolean>(false);
-  const [openResult, setOpenResult] = useState<boolean>(false);
+
   const handleOpenModal = () => {
     setOpen(!open);
   };
+
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleResults = () => {
-    setOpenResult(!openResult);
   };
 
   return (
@@ -37,8 +33,6 @@ const QuestionLayout: React.FC<QuestionLayoutProps> = (props) => {
       <ScoreboardModal open={open}>
         <Scores onCloseModal={handleClose} />
       </ScoreboardModal>
-
-      <ResultModal open={openResult} onCloseResultsModal={handleResults} />
     </>
   );
 };

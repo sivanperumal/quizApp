@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 
 type Result = "pass" | "fail";
-interface ScoreProps {
+export interface ScoreProps {
   onCloseModal: () => void;
 }
 const Scores: React.FC<ScoreProps> = (props) => {
