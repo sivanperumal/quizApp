@@ -1,6 +1,6 @@
 import { Quiz } from "../interface";
 
-import Board from "./Board";
+import Board from "./BoardComp";
 
 interface QuestionProps {
   data: Quiz;

@@ -8,23 +8,28 @@ import {
 import { Quiz } from "../interface";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
-import Board from "./Board";
+import Board from "./BoardComp";
 const Results: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { quiz, resultPageNo } = useQuiz();
+
   const questionObj: Quiz = useMemo(() => {
     return quiz[resultPageNo] ?? {};
   }, [resultPageNo, quiz]);
+
   const handlePrevQuiz = () => {
     dispatch(updateResultPageNo(resultPageNo - 1));
   };
+
   const handleNextQuiz = () => {
     dispatch(updateResultPageNo(resultPageNo + 1));
   };
+
   const handleOnReset = () => {
     dispatch(resetQuiz());
     dispatch(getQuiz());
   };
+
   return (
     <>
       <div className="question-layout">
