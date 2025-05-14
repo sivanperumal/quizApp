@@ -31,4 +31,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages   # Deploy to the gh-pages branch
-          folder: build      # The output folder containing the React app
+          folder: dist      # The output folder containing the React app
