@@ -25,7 +25,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build React App
-        run: npm run build
+        run: npm run vite:build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
