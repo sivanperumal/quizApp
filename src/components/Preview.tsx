@@ -21,6 +21,7 @@ const Preview: React.FC = () => {
               selectedAnswers[index] ? "active indicator" : "indicator"
             } btn btn-light`}
             onClick={() => handleClick(index)}
+            data-testid="indicator-btn"
           >
             {index + 1}
           </button>
