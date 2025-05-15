@@ -14,7 +14,7 @@ const Results: React.FC = () => {
   const { quiz, resultPageNo } = useQuiz();
 
   const questionObj: Quiz = useMemo(() => {
-    return quiz[resultPageNo] ?? {};
+    return quiz[resultPageNo];
   }, [resultPageNo, quiz]);
 
   const handlePrevQuiz = () => {
@@ -37,6 +37,7 @@ const Results: React.FC = () => {
           <Board data={questionObj} boardtype="rBoard" />
           <div className="resultActions">
             <button
+              data-testid="prev-btn"
               type="button"
               className="btn btn-outline-secondary me-2"
               onClick={handlePrevQuiz}
@@ -44,6 +45,7 @@ const Results: React.FC = () => {
             >{`< Previous`}</button>
             {resultPageNo >= quiz.length - 1 ? (
               <button
+                data-testid="close-btn"
                 type="button"
                 className="btn btn-danger"
                 onClick={handleOnReset}
@@ -52,6 +54,7 @@ const Results: React.FC = () => {
               </button>
             ) : (
               <button
+                data-testid="next-btn"
                 type="button"
                 className="btn btn-outline-secondary"
                 onClick={handleNextQuiz}

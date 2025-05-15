@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { Quiz } from "../interface";
 import { useDispatch } from "react-redux";
 import { updateAnswer, useQuiz } from "../redux/slices/quiz.slice";
-interface BoardProps {
+export interface BoardProps {
   data: Quiz;
   boardtype: string;
 }
@@ -80,6 +80,7 @@ const Board: React.FC<BoardProps> = (props) => {
                 type="radio"
                 checked={selectedValue === answer}
                 id={`option${index}`}
+                value={answer}
                 onChange={(event) => handleOnChange(event, answer)}
               />
             )}
@@ -91,9 +92,9 @@ const Board: React.FC<BoardProps> = (props) => {
               ""
             )}
             <label htmlFor={`option${index}`}>{answer}</label>
-            <span className="answercomment">
+            <label className="answercomment">
               {`${getSelectedAnsString(answer)}`}
-            </span>
+            </label>
           </li>
         ))}
       </ul>

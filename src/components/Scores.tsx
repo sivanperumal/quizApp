@@ -27,7 +27,6 @@ const Scores: React.FC<ScoreProps> = (props) => {
 
   const percentage = (score / quiz.length) * 100;
   const result: Result = percentage > 70 ? "pass" : "fail";
-
   const handleCancel = () => {
     dispatch(resetQuiz());
     dispatch(getQuiz());
@@ -85,6 +84,7 @@ const Scores: React.FC<ScoreProps> = (props) => {
             onClick={handleShowResults}
             type="button"
             className="btn btn-primary me-2"
+            data-testid="show-results-btn"
           >
             Show Results
           </button>
@@ -94,6 +94,7 @@ const Scores: React.FC<ScoreProps> = (props) => {
             onClick={handleRetry}
             type="button"
             className="btn btn-outline-secondary me-2"
+            data-testid="retry-btn"
           >
             Retry
           </button>
@@ -102,6 +103,7 @@ const Scores: React.FC<ScoreProps> = (props) => {
           onClick={handleCancel}
           type="button"
           className="btn btn-outline-secondary"
+          data-testid="close-btn"
         >
           Close
         </button>
