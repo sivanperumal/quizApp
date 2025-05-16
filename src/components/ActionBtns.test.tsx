@@ -3,7 +3,7 @@ import ActionBtns from "./ActionBtns";
 import { setupStore } from "../redux/store";
 import { render } from "@testing-library/react";
 import { useQuiz } from "../redux/slices/quiz.slice";
-import { screen } from "@testing-library/react";
+import { screen } from "@testing-library/dom";
 
 jest.mock("../redux/slices/quiz.slice", () => ({
   ...jest.requireActual("../redux/slices/quiz.slice"),
