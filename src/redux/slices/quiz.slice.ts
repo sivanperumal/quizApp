@@ -3,7 +3,11 @@ import { Quiz, QuizState } from "../../interface";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { shuffleArray } from "../../utils";
-const apiUrl = process.env.REACT_APP_API_URL;
+// webpack
+// const apiUrl = process.env.VITE_API_URL; 
+
+// vite
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export const getQuiz = createAsyncThunk("quiz/getQuiz", async () => {
   try {
