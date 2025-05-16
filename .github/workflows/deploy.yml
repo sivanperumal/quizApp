@@ -23,6 +23,9 @@ jobs:
 
       - name: Install Dependencies
         run: npm install --legacy-peer-deps
+      
+      - name: Jest Testing
+        run: npm run cover   
 
       - name: Build React App
         run: npm run vite:build
